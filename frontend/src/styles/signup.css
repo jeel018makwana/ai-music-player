@@ -81,6 +81,30 @@
     border-color: #7c3aed;
     box-shadow: 0 0 12px rgba(124,58,237,0.7);
 }
+.password-wrapper{
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .input-field{
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.eye-btn{
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #cbd5f5;
+    font-size: 20px;
+    user-select: none;
+}
+
+.eye-btn:hover{
+    color: white;
+}
 
 .signup-btn{
     width: 100%;

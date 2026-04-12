@@ -58,14 +58,20 @@ function Signup() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter your password"
-                        className="input-field"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}>👁️</button>
+                    <div className="password-wrapper">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter your password"
+                            className="input-field"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <span 
+                            className="eye-btn material-icons" 
+                            onClick={() => setShowPassword(!showPassword)} 
+                            title={showPassword ? "Hide password": "Show password"}>
+                        {showPassword ? "visibility_off" : "visibility"}</span>
+                    </div>
                     <button className="signup-btn">Signup</button>
                 </form>
 
