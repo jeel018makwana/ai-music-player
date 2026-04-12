@@ -63,7 +63,7 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <span 
-                            className="eye-btn"
+                            className="eye-btn material-icons"
                             onClick={togglePassword}
                             title={showPassword ? "Hide password" : "Show password"}
                         >
