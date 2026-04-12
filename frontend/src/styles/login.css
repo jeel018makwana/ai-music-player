@@ -135,20 +135,3 @@
     text-decoration: underline;
 }
 
-.eye-btn {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-    color: #cbd5f5;
-    transition: 0.25s ease;
-    user-select: none;
-}
-
-.eye-btn:hover {
-    color: white;
-    transform: translateY(-50%) scale(1.2);
-    text-shadow: 0 0 10px rgba(124,58,237,0.8);
-}

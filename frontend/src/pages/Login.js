@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash} from "react-icons/fa"
+
 function Login() {
     const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ function Login() {
                             onClick={togglePassword}
                             title={showPassword ? "Hide password" : "Show password"}
                         >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            {showPassword ? "🙈" : "👁️"}
                         </span>
                     </div>
                     <button className="login-btn">Login</button>
