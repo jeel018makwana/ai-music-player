@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import cloudinary.uploader
 from models.song_model import add_song, get_all_songs
-from config.cloudinary_config import *
+
 
 song = Blueprint("song", __name__)
 
