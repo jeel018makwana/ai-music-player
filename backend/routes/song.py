@@ -3,6 +3,8 @@ import cloudinary.uploader
 from models.song_model import add_song, get_all_songs
 from config.db import db
 import cloudinary.api
+import cloudinary
+from config.cloudinary_config import *
 
 song = Blueprint("song", __name__)
 songs_collection = db["songs"]
@@ -17,16 +19,16 @@ def get_songs():
 @song.route("/sync-songs", methods=["GET"])
 def sync_songs():
     try:
-        # Cloudinary se sab assets fetch karo
         result = cloudinary.api.resources(resource_type="video")
+
+        print("CLOUDINARY RESULT:", result)
 
         synced = 0
 
-        for item in result["resources"]:
+        for item in result.get("resources", []):
             song_url = item["secure_url"]
             song_name = item["public_id"].split("/")[-1] + ".mp3"
 
-            # check karo already exist hai ya nahi
             existing = songs_collection.find_one({"url": song_url})
 
             if not existing:
@@ -39,8 +41,8 @@ def sync_songs():
         return jsonify({"msg": f"{synced} songs synced"}), 200
 
     except Exception as e:
-        print("SYNC ERROR:", e)
-        return jsonify({"msg": "Sync failed"}), 500
+        print("❌ SYNC ERROR FULL:", str(e))
+        return jsonify({"msg": str(e)}), 500
 @song.route("/upload-song", methods=["POST"])
 def upload_song():
     try:
