@@ -19,7 +19,7 @@ def get_songs():
 @song.route("/sync-songs", methods=["GET"])
 def sync_songs():
     try:
-        result = cloudinary.api.resources(resource_type="video")
+        result = cloudinary.api.resources(resource_type="video",max_results=500)
 
         print("CLOUDINARY RESULT:", result)
 
