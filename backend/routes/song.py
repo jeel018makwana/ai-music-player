@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import cloudinary.uploader
 from models.song_model import add_song, get_all_songs
-
+from config.db import db
 
 song = Blueprint("song", __name__)
 
@@ -31,15 +31,12 @@ def upload_song():
             "url":result["secure_url"]
         }
 
-        inserted = songs_collection.insert_one(song_data)
+        songs_collection.insert_one(song_data)
 
         print("INSERTED ID:", inserted.inserted_id)
 
-        return jsonify({
-            "msg": "Song uploaded successfully",
-            "data": song_data
-        }), 200
+        return jsonify({"msg": "uploaded"}), 200
 
     except Exception as e:
-        print("UPLOAD ERROR:", e)
-        return jsonify({"msg": "Upload failed"}), 500
+        print("ERROR:", e)
+        return jsonify({"msg": "failed"}), 500
