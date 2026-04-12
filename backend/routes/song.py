@@ -4,8 +4,7 @@ from models.song_model import add_song, get_all_songs
 from config.db import db
 
 song = Blueprint("song", __name__)
-
-
+songs_collection = db["songs"]
 @song.route("/songs", methods=["GET"])
 def get_songs():
     try:
@@ -31,7 +30,7 @@ def upload_song():
             "url":result["secure_url"]
         }
 
-        songs_collection.insert_one(song_data)
+        inserted = songs_collection.insert_one(song_data)
 
         print("INSERTED ID:", inserted.inserted_id)
 
