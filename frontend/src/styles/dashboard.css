@@ -112,7 +112,6 @@
 }
 
 .mode-switch {
-    border: 2px solid red;
     position: relative;
     z-index: 3;
     display: flex;
