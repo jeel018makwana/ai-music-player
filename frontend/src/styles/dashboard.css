@@ -144,11 +144,14 @@
     color: white;
     cursor: pointer;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .controls button:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(124,58,237,0.6);
+    box-shadow: 0 0 18px rgba(124,58,237,0.6);
 }
 
 /* select dropdown */

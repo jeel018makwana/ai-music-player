@@ -333,10 +333,10 @@ function Dashboard() {
                         ))}
                     </select>
                     <div className="controls">
-                        <button onClick={handlePrev}>Previous</button>
-                        <button onClick={handlePlay}>Play</button>
-                        <button onClick={handlePause}>Pause</button>
-                        <button onClick={handleNext}>Next</button>
+                        <button onClick={handlePrev}>⏮</button>
+                        <button onClick={handlePlay}>▶</button>
+                        <button onClick={handlePause}>⏸</button>
+                        <button onClick={handleNext}>⏭</button>
                     </div>
                     <div className="volume-controls">
                         <button onClick={volumeDown}>🔉</button>
