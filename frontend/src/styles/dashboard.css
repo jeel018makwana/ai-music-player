@@ -1,10 +1,13 @@
 /* Full screen dashboard container */
 .dashboard {
     height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -103,7 +106,6 @@
     padding: 20px;
     position: relative;
     z-index: 2;
-    height: 100%;
 }
 
 /* GLASS CARD (same login style) */
