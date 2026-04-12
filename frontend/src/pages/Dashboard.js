@@ -271,25 +271,8 @@ function Dashboard() {
             <div className="bg-overlay"></div>
             {/* Navbar */}
             <div className="navbar">
-                <h2>AI Music Player</h2>
-                <button className="logout-btn" onClick={handleLogout}>
-                    Logout
-                </button>
-            </div>
-            <div className="top-controls">
-                <div className="song-section">
-                    <select onChange={(e) => {
-                        const index = e.target.selectedIndex - 1;
-                        if(index>=0) setCurrentIndex(index);
-                    }}>
-                        <option>Select Song</option>
-                        {songs.map((song, index) => (
-                            <option key={index} value={song.url}>
-                                {song.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                <h2 className="logo">AI Music Player</h2>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
             <div className="mode-switch">
                 <button className={`mode-btn ${mode === "local" ? "active" : ""}`} 
@@ -307,7 +290,7 @@ function Dashboard() {
                         window.location.href = "https://ai-music-player-3zcp.onrender.com/spotify/login";
                     }
                 }}>Spotify</button>
-            </div>
+            </div>           
             <div className="main-grid">
                 <div className="glass-card left-panel">
                     <h3>Gesture Control</h3>
@@ -323,8 +306,20 @@ function Dashboard() {
                         <p>{gesture || "No gesture yet"}</p>
                     </div>
                 </div> 
+                {/* center */}
                 <div className="glass-card player-card">
                     <h2>Now Playing</h2>
+                    <select onChange={(e) => {
+                        const index = e.target.selectedIndex - 1;
+                        if(index>=0) setCurrentIndex(index);
+                    }}>
+                        <option>Select Song</option>
+                        {songs.map((song, index) => (
+                            <option key={index} value={song.url}>
+                                {song.name}
+                            </option>
+                        ))}
+                    </select>
                     <div className="controls">
                         <button onClick={handlePrev}>Previous</button>
                         <button onClick={handlePlay}>Play</button>
@@ -361,7 +356,7 @@ function Dashboard() {
                         </ul>
                     </div>
 
-                    <div className="info-card">
+                    <div className="glass-card info-card">
                         <h3> Gesture Controls</h3>
                         <ul>
                             <li>Thumb Up -- Play</li>
