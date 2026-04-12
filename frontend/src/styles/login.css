@@ -73,7 +73,10 @@
     color: #cbd5f5;
     margin-bottom: 25px;
 }
-
+form .input-field,
+form .password-wrapper{
+    width: 100%;
+}
 /* Inputs */
 .input-field{ 
     width: 100%;
@@ -86,6 +89,7 @@
     color: white;
     transition: all 0.3s ease;
     font-size: 14px;
+    display: block;
 }
 
 /* input focus */
@@ -96,7 +100,6 @@
 .password-wrapper{
     position: relative;
     width: 100%;
-    display: block;
 }
 .password-wrapper .input-field{
     width: 100%;
