@@ -56,8 +56,8 @@ export function initVoice({
 
         console.log("Voice:", transcript);
 
-        if (transcript.includes("kiki")) {
-            const command = transcript.replace("kiki", "").trim();
+        if (transcript.includes("alexa")) {
+            const command = transcript.replace("alexa", "").trim();
             console.log("Command:", command);
             setVoiceText(command);
             if (command.includes("play song")) {
