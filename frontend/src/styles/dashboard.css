@@ -65,3 +65,33 @@
 .controls button:hover {
     transform: scale(1.1);
 } 
+
+.mode-switch {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.mode-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.mode-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.25);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg,#7c3aed,#06b6d4);
+    box-shadow: 0 0 15px rgba(124,58,237,0.7);
+}
