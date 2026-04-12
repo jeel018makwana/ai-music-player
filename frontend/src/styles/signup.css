@@ -12,7 +12,7 @@
     position: absolute;
     width: 110%;
     height: 110%;
-    background: url("https://images.unsplash.com/photo-1562575214-da9fcf59b907?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fG11c2ljJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D") no-repeat center/cover;
+    background: url("https://images.unsplash.com/photo-1562575214-da9fcf59b907?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center/cover;
     animation: zoomMove 15s ease-in-out infinite alternate;
     z-index: 0;
 }
