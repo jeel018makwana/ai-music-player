@@ -305,6 +305,18 @@ function Dashboard() {
                         <h3>Gesture Detected</h3>
                         <p>{gesture || "No gesture yet"}</p>
                     </div>
+                    <div className="glass-card info-card">
+                        <h3> Gesture Controls</h3>
+                        <ul>
+                            <li>Thumb Up -- Play</li>
+                            <li>Fist -- Pause</li>
+                            <li>Pinch In -- Volume Down</li>
+                            <li>Pinch Out -- Volume Up</li>
+                            <li>Swipe Left -- Previous</li>
+                            <li>Swipe Right -- Next</li>
+                            <li>Thumb Down -- Dislike</li>
+                        </ul>
+                    </div>
                 </div> 
                 {/* center */}
                 <div className="glass-card player-card">
@@ -353,19 +365,6 @@ function Dashboard() {
                             <li>Kiki, Play song Song_name</li>
                             <li>Kiki, Volume Up</li>
                             <li>Kiki, Volume Down</li>
-                        </ul>
-                    </div>
-
-                    <div className="glass-card info-card">
-                        <h3> Gesture Controls</h3>
-                        <ul>
-                            <li>Thumb Up -- Play</li>
-                            <li>Fist -- Pause</li>
-                            <li>Pinch In -- Volume Down</li>
-                            <li>Pinch Out -- Volume Up</li>
-                            <li>Swipe Left -- Previous</li>
-                            <li>Swipe Right -- Next</li>
-                            <li>Thumb Down -- Dislike</li>
                         </ul>
                     </div>
                 </div>
