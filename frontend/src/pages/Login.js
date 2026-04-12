@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { Link, useNavigate } from "react-router-dom";
-
+import { FaEye, FaEyeSlask} from "react-icons/fa"
 function Login() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-
+    const togglePassword = () => {
+        setShowPassword(prev => !prev);
+    };
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -62,9 +64,10 @@ function Login() {
                         />
                         <span 
                             className="eye-btn"
-                            onClick={() => setShowPassword(!showPassword)}
+                            onClick={togglePassword}
+                            title={showPassword ? "Hide password" : "Show password"}
                         >
-                            {showPassword ? "🙈" : "👁️"}
+                            {showPassword ? <FaEyeSlask /> : <FaEye />}
                         </span>
                     </div>
                     <button className="login-btn">Login</button>
