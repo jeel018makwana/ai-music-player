@@ -73,10 +73,7 @@
     color: #cbd5f5;
     margin-bottom: 25px;
 }
-form .input-field,
-form .password-wrapper{
-    width: 100%;
-}
+
 /* Inputs */
 .input-field{ 
     width: 100%;
