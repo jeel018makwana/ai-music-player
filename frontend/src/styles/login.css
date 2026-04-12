@@ -41,6 +41,7 @@
     -webkit-backdrop-filter: blur(18px);
     padding: 40px;
     width: 400px;
+    overflow: hidden;
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.1);
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
@@ -95,8 +96,11 @@
 .password-wrapper{
     position: relative;
     width: 100%;
+    display: block;
 }
 .password-wrapper .input-field{
+    width: 100%;
+    box-sizing: border-box;
     padding-right: 45px;
 }
 .eye-btn{
