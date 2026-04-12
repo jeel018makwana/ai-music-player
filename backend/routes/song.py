@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 import cloudinary.uploader
 from models.song_model import add_song, get_all_songs
 from config.db import db
+import cloudinary.api
 
 song = Blueprint("song", __name__)
 songs_collection = db["songs"]
@@ -13,7 +14,33 @@ def get_songs():
     except Exception as e:
         print("FETCH ERROR:", e)
         return jsonify({"msg": "Failed to fetch songs"}), 500
+@song.route("/sync-songs", methods=["GET"])
+def sync_songs():
+    try:
+        # Cloudinary se sab assets fetch karo
+        result = cloudinary.api.resources(resource_type="video")
 
+        synced = 0
+
+        for item in result["resources"]:
+            song_url = item["secure_url"]
+            song_name = item["public_id"].split("/")[-1] + ".mp3"
+
+            # check karo already exist hai ya nahi
+            existing = songs_collection.find_one({"url": song_url})
+
+            if not existing:
+                songs_collection.insert_one({
+                    "name": song_name,
+                    "url": song_url
+                })
+                synced += 1
+
+        return jsonify({"msg": f"{synced} songs synced"}), 200
+
+    except Exception as e:
+        print("SYNC ERROR:", e)
+        return jsonify({"msg": "Sync failed"}), 500
 @song.route("/upload-song", methods=["POST"])
 def upload_song():
     try:
