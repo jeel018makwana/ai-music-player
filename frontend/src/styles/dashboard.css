@@ -106,6 +106,7 @@
     padding: 20px;
     position: relative;
     z-index: 2;
+    height: 100%;
 }
 
 /* GLASS CARD (same login style) */
