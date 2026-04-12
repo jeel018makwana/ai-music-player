@@ -136,6 +136,8 @@
 
 /* controls buttons */
 .controls button {
+    width: 55px;
+    height: 55px;
     margin: 8px;
     padding: 12px;
     border-radius: 50%;
@@ -144,11 +146,11 @@
     color: white;
     cursor: pointer;
     transition: 0.3s;
-    display: flex !important;
-    flex-direction: row;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    font-size: 20px;
+    flex-wrap: wrap;
 }
 
 .controls button:hover {
