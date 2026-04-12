@@ -1,0 +1,136 @@
+/* Full screen background */
+.login-container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* animated background image */
+.bg-image{
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    background: url("https://images.unsplash.com/photo-1642744901911-89c13f549c9c?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bXVzaWMlMjBiYWNrZ3JvdW5kJTIwYW5pbWF0aW9uNHxlbnwwfHwwfHx8MA%3D%3D") no-repeat center/cover;
+    animation: zoomMove 15s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+.bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(2,6,23,0.75);
+    z-index: 1;
+}
+
+@keyframes zoomMove {
+    0%{transform: scale(1) translate(0,0);}
+    100%{transform:scale(1.2) translate(-30px, -20px);}
+}
+
+/* Glass Card */
+.login-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 40px;
+    width: 400px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    text-align: center;
+    animation: fadeUp 0.8s ease;
+}
+
+/* Card animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Heading */
+.login-card h2{
+    margin-bottom: 10px;
+    color: white;
+}
+
+/*Subtitle*/
+.subtitle{
+    font-size: 14px;
+    color: #cbd5f5;
+    margin-bottom: 25px;
+}
+
+/* Inputs */
+.input-field{ 
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    outline: none;
+    background: rgba(255,255,255,0.05);
+    color: white;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+/* input focus */
+.input-field:focus{ 
+    border-color: #7c3aed;
+    box-shadow: 0 0 10px rgba(124,58,237, 0.7);
+}
+
+/*Button*/
+.login-btn{
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* button hover */
+.login-btn:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(124,58,237,0.8);
+}
+
+.login-btn:active {
+    transform: scale(0.96);
+}
+
+/*Signup text */
+.signup-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #cbd5f5;
+}
+
+.signup-link{
+    color: #06b6d4;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.signup-link:hover{
+    text-decoration: underline;
+}
