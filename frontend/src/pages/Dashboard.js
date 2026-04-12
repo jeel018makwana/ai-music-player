@@ -18,6 +18,7 @@ function Dashboard() {
     const [mode, setMode] = useState("local")
     const [voiceText, setVoiceText] = useState("");
     const [assistantText, setAssistantText] = useState("");
+    const BASE_URL = "https://ai-music-player-3zcp.onrender.com";
     useEffect(() => {
         if (mode === "spotify"){
             if ( audioRef.current) {
@@ -51,7 +52,7 @@ function Dashboard() {
 
     const fetchSongs = async ()=> {
         try {
-            const res = await fetch("https://ai-music-player-3zcp.onrender.com/songs");
+            const res = await fetch(`${BASE_URL}/songs`);
             const data = await res.json();
             setSongs(data);
         } catch (err) {

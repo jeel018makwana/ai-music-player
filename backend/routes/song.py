@@ -31,10 +31,15 @@ def upload_song():
             "url":result["secure_url"]
         }
 
-        add_song(song_data)
+        inserted = songs_collection.insert_one(song_data)
 
-        return jsonify({"msg":"Song uploaded", "url":result["secure_url"]}), 200
-    
+        print("INSERTED ID:", inserted.inserted_id)
+
+        return jsonify({
+            "msg": "Song uploaded successfully",
+            "data": song_data
+        }), 200
+
     except Exception as e:
-        print("UPLOAD ERROR:",e)
-        return jsonify({"msg":"Upload failed"}), 500
+        print("UPLOAD ERROR:", e)
+        return jsonify({"msg": "Upload failed"}), 500
