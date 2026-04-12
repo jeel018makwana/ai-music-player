@@ -67,7 +67,7 @@ function Login() {
                             onClick={togglePassword}
                             title={showPassword ? "Hide password" : "Show password"}
                         >
-                            {showPassword ? "https://www.flaticon.com/free-icon/view_709612" : "https://www.flaticon.com/free-icon/hide_2767146"}
+                            {showPassword ? "visibility_off" : "visibility"}
                         </span>
                     </div>
                     <button className="login-btn">Login</button>
