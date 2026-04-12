@@ -145,6 +145,7 @@
     cursor: pointer;
     transition: 0.3s;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 }
