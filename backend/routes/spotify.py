@@ -10,7 +10,7 @@ access_token = None
 refresh_token = None
 
 # ✅ MongoDB
-client = MongoClient("mongodb+srv://Jeelmakwana:Jeel%40018@cluster0.43mydqv.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client["music_app"]
 collection = db["spotify_tokens"]
 
