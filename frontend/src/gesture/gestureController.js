@@ -21,27 +21,17 @@ export const initGestureController = ({
     const lastGestureRef = { current: "" };
     const lastActionTimeRef = { current: 0 };
 
-    let currentGesture = "";
-    let gestureCount = 0;
-
-    const confirmGesture = (gestureName) => {
-        if (currentGesture === gestureName) {
-            gestureCount++;
-        }else{
-            currentGesture = gestureName;
-            gestureCount = 1;
-        }
-        return gestureCount>=5;
-    }
-
     const triggerGesture = (gestureName, action) => {
         const now = Date.now();
 
-        if (now - lastActionTimeRef.current < 1500) return;
+        // Prevent multiple triggers
+        if (now - lastActionTimeRef.current < 1200) return;
         if (lastGestureRef.current === gestureName) return;
 
         lastGestureRef.current = gestureName;
         lastActionTimeRef.current = now;
+
+        console.log("Gesture:", gestureName);
 
         setGesture(gestureName);
         action();
@@ -59,8 +49,8 @@ export const initGestureController = ({
     hands.setOptions({
         maxNumHands: 1,
         modelComplexity: 1,
-        minDetectionConfidence: 0.8,
-        minTrackingConfidence: 0.8
+        minDetectionConfidence: 0.7,
+        minTrackingConfidence: 0.7
     });
 
     hands.onResults((results) => {
@@ -69,7 +59,6 @@ export const initGestureController = ({
             results.multiHandLandmarks.length === 0 ||
             !isMounted
         ) return;
-
 
         const landmarks = results.multiHandLandmarks[0];
         if (!landmarks || landmarks.length < 21) return;
@@ -83,70 +72,13 @@ export const initGestureController = ({
         const isFingerDown = (tip, pip) =>
             landmarks[tip].y > landmarks[pip].y;
 
-        const pinchDistance = Math.hypot(
-            thumbTip.x - indexTip.x,
-            thumbTip.y - indexTip.y
-        );
-
-        // ================= VOLUME DOWN (Pinch In) =================
-        const isVolumeDown =
-            pinchDistance < 0.05 &&
-            isFingerDown(12, 10) &&
-            isFingerDown(16, 14) &&
-            isFingerDown(20, 18);
-
-        if (
-            isVolumeDown &&
-            confirmGesture("Volume Down")
-        ) {
-            triggerGesture("Volume Down", () => {
-                if (mode === "spotify") {
-                    fetch(
-                        "https://ai-music-player-3zcp.onrender.com/spotify/volume-down",
-                        { method: "POST" }
-                    );
-                } else {
-                    onVolumeDown();
-                }
-            });
-            return;
-        }
-
-        // ================= VOLUME UP (Pinch Out) =================
-        const isVolumeUp =
-            pinchDistance > 0.20 &&
-            isFingerUp(8, 6) &&
-            isFingerUp(12, 10);
-
-        if (
-            isVolumeUp &&
-            confirmGesture("Volume Up")
-        ) {
-            triggerGesture("Volume Up", () => {
-                if (mode === "spotify") {
-                    fetch(
-                        "https://ai-music-player-3zcp.onrender.com/spotify/volume-up",
-                        { method: "POST" }
-                    );
-                } else {
-                    onVolumeUp();
-                }
-            });
-            return;
-        }
-
-        // ================= PLAY (Thumb Up) =================
+        // ----------------- PLAY (Thumb Up) -----------------
         const isPlay =
             thumbTip.y < landmarks[3].y &&
             isFingerDown(8, 6) &&
-            isFingerDown(12, 10) &&
-            isFingerDown(16, 14) &&
-            isFingerDown(20, 18);
+            isFingerDown(12, 10);
 
-        if (
-            isPlay &&
-            confirmGesture("Play")
-        ) {
+        if (isPlay) {
             triggerGesture("Play", () => {
                 if (mode === "spotify") {
                     fetch(
@@ -160,17 +92,14 @@ export const initGestureController = ({
             return;
         }
 
-        // ================= PAUSE (Fist) =================
+        // ----------------- PAUSE (Fist) -----------------
         const isPause =
             isFingerDown(8, 6) &&
             isFingerDown(12, 10) &&
             isFingerDown(16, 14) &&
             isFingerDown(20, 18);
 
-        if (
-            isPause &&
-            confirmGesture("Pause")
-        ) {
+        if (isPause) {
             triggerGesture("Pause", () => {
                 if (mode === "spotify") {
                     fetch(
@@ -184,17 +113,14 @@ export const initGestureController = ({
             return;
         }
 
-        // ================= NEXT (Only Index Finger Open) =================
+        // ----------------- NEXT (Only Index Finger) -----------------
         const isNext =
             isFingerUp(8, 6) &&
             isFingerDown(12, 10) &&
             isFingerDown(16, 14) &&
             isFingerDown(20, 18);
 
-        if (
-            isNext &&
-            confirmGesture("Next")
-        ) {
+        if (isNext) {
             triggerGesture("Next", () => {
                 if (mode === "spotify") {
                     onNext();
@@ -207,17 +133,14 @@ export const initGestureController = ({
             return;
         }
 
-        // ================= PREVIOUS (Index + Middle Open) =================
+        // ----------------- PREVIOUS (Index + Middle Finger) -----------------
         const isPrevious =
             isFingerUp(8, 6) &&
             isFingerUp(12, 10) &&
             isFingerDown(16, 14) &&
             isFingerDown(20, 18);
 
-        if (
-            isPrevious &&
-            confirmGesture("Previous")
-        ) {
+        if (isPrevious) {
             triggerGesture("Previous", () => {
                 if (mode === "spotify") {
                     onPrev();
@@ -230,22 +153,49 @@ export const initGestureController = ({
             return;
         }
 
-        // ================= THUMB DOWN =================
+        // ----------------- VOLUME DOWN (Pinch In) -----------------
+        const pinchDistance = Math.hypot(
+            thumbTip.x - indexTip.x,
+            thumbTip.y - indexTip.y
+        );
+
+        if (pinchDistance < 0.05) {
+            triggerGesture("Volume Down", () => {
+                if (mode === "spotify") {
+                    fetch(
+                        "https://ai-music-player-3zcp.onrender.com/spotify/volume-down",
+                        { method: "POST" }
+                    );
+                } else {
+                    onVolumeDown();
+                }
+            });
+            return;
+        }
+
+        // ----------------- VOLUME UP (Pinch Out) -----------------
+        if (pinchDistance > 0.25) {
+            triggerGesture("Volume Up", () => {
+                if (mode === "spotify") {
+                    fetch(
+                        "https://ai-music-player-3zcp.onrender.com/spotify/volume-up",
+                        { method: "POST" }
+                    );
+                } else {
+                    onVolumeUp();
+                }
+            });
+            return;
+        }
+
+        // ----------------- THUMB DOWN -----------------
         const isThumbDown =
             thumbTip.y > landmarks[3].y &&
             isFingerDown(8, 6);
 
-        if (
-            isThumbDown &&
-            confirmGesture("Dislike")
-        ) {
+        if (isThumbDown) {
             triggerGesture("Dislike", onNext);
-            return;
         }
-
-        // reset if nothing matches
-        currentGesture = "";
-        gestureCount = 0;
     });
 
     const camera = new Camera(videoElement, {
@@ -278,7 +228,7 @@ export const initGestureController = ({
             if (videoElement.srcObject) {
                 videoElement.srcObject
                     .getTracks()
-                    .forEach((track) => track.stop());
+                    .forEach(track => track.stop());
 
                 videoElement.srcObject = null;
             }
