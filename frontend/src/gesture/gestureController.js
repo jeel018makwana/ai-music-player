@@ -25,7 +25,7 @@ export const initGestureController = ({
     let gestureCount = 0;
 
     const confirmGesture = (gestureName) => {
-        if (currentGesture == gestureName) {
+        if (currentGesture === gestureName) {
             gestureCount++;
         }else{
             currentGesture = gestureName;
