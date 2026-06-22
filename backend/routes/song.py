@@ -24,28 +24,32 @@ def sync_songs():
             max_results=500
         )
 
-        cloudinary_urls = []
+        cloud_songs = result.get("resources", [])
 
-        for item in result.get("resources", []):
+        # Mongo se saare URLs ek hi baar le lo
+        existing_urls = set(
+            song["url"]
+            for song in songs_collection.find({}, {"url": 1})
+        )
+
+        new_songs = []
+
+        for item in cloud_songs:
             song_url = item["secure_url"]
             song_name = item["public_id"].split("/")[-1] + ".mp3"
 
-            cloudinary_urls.append(song_url)
-
-            existing = songs_collection.find_one({"url": song_url})
-
-            if not existing:
-                songs_collection.insert_one({
+            if song_url not in existing_urls:
+                new_songs.append({
                     "name": song_name,
                     "url": song_url
                 })
 
-        # delete broken songs from Mongo
-        songs_collection.delete_many({
-            "url": {"$nin": cloudinary_urls}
-        })
+        if new_songs:
+            songs_collection.insert_many(new_songs)
 
-        return jsonify({"msg": "Songs synced successfully"}), 200
+        return jsonify({
+            "msg": f"{len(new_songs)} songs synced"
+        }), 200
 
     except Exception as e:
         print("SYNC ERROR:", e)
