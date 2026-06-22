@@ -3,6 +3,7 @@ import requests
 import base64
 from config.spotify_config import *
 from pymongo import MongoClient
+import os
 
 spotify = Blueprint("spotify", __name__)
 

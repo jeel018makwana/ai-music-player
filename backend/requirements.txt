@@ -6,3 +6,5 @@ requests
 flask-bcrypt
 pyjwt
 cloudinary
+gunicorn
+dnspython

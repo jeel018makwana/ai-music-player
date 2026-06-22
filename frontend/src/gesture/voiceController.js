@@ -50,7 +50,7 @@ export function initVoice({
     };
     recognition.onresult = (event) => {
         const transcript =
-            event.results[0][0].transcript
+            event.results[event.results.length-1][0].transcript
                 .toLowerCase()
                 .trim();
 

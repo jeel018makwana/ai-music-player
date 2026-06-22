@@ -107,7 +107,7 @@ export const initGestureController = ({
         if (isThumbUp) {
             triggerGesture("Play", () => {
                 if(mode === "spotify") {
-                    fetch("https://ai-music-player-3zcp.onrender.com/spotify/play", {metohd:"POST"});
+                    fetch("https://ai-music-player-3zcp.onrender.com/spotify/play", {method:"POST"});
                 }else {
                     onPlay();
                 }

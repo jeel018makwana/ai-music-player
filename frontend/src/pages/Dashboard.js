@@ -76,7 +76,7 @@ function Dashboard() {
         audio.crossOrigin = "anonymous";
         audio.preload = "auto";
 
-        if (audio.src !== songs[currentIndex]?.url) {
+        if (audio.getAttribute("src") !== songs[currentIndex]?.url) {
             audio.pause();
             audio.src = songs[currentIndex]?.url;
             audio.load();
