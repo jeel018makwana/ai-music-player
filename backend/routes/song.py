@@ -19,15 +19,18 @@ def get_songs():
 @song.route("/sync-songs", methods=["GET"])
 def sync_songs():
     try:
-        result = cloudinary.api.resources(resource_type="video",max_results=500)
+        result = cloudinary.api.resources(
+            resource_type="video",
+            max_results=500
+        )
 
-        print("CLOUDINARY RESULT:", result)
-
-        synced = 0
+        cloudinary_urls = []
 
         for item in result.get("resources", []):
             song_url = item["secure_url"]
             song_name = item["public_id"].split("/")[-1] + ".mp3"
+
+            cloudinary_urls.append(song_url)
 
             existing = songs_collection.find_one({"url": song_url})
 
@@ -36,12 +39,16 @@ def sync_songs():
                     "name": song_name,
                     "url": song_url
                 })
-                synced += 1
 
-        return jsonify({"msg": f"{synced} songs synced"}), 200
+        # delete broken songs from Mongo
+        songs_collection.delete_many({
+            "url": {"$nin": cloudinary_urls}
+        })
+
+        return jsonify({"msg": "Songs synced successfully"}), 200
 
     except Exception as e:
-        print("❌ SYNC ERROR FULL:", str(e))
+        print("SYNC ERROR:", e)
         return jsonify({"msg": str(e)}), 500
 @song.route("/upload-song", methods=["POST"])
 def upload_song():
