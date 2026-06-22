@@ -54,6 +54,7 @@ function Dashboard() {
         try {
             const res = await fetch(`${BASE_URL}/songs`);
             const data = await res.json();
+            console.log("Sings Api Response:",data)
             setSongs(data);
         } catch (err) {
             console.log(err);
@@ -78,6 +79,9 @@ function Dashboard() {
 
         if (audio.getAttribute("src") !== songs[currentIndex]?.url) {
             audio.pause();
+
+            console.log("Current Song:", songs[currentIndex]);
+            console.log("URL", songs[currentIndex]?.url);
             audio.src = songs[currentIndex]?.url;
             audio.load();
             if (hasInteracted) {
